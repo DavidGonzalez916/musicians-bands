@@ -94,7 +94,6 @@ describe('Band, Musician, and Song Models', () => {
         await song2[0].addBands([band2[0],band2[1]])
         band = await band2[0].getSongs();
         song = await song2[0].getBands();
-        console.log(band);
         expect(band.length).toBe(2);
         expect(song.length).toBe(2);
         
