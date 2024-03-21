@@ -74,4 +74,30 @@ describe('Band, Musician, and Song Models', () => {
         const destroyed = await Song.findByPk(1);
         expect(destroyed).toBe(null);
     })
+    test('band to musician assoc', async () => {
+        const nirvana = await Band.create({name: "Nirvana", genre:"Alternative Rock"})
+        const hayley = await Musician.create({name: "Hayley", instrument:"Voice"})
+        const pink = await Musician.create({name: "Pink", instrument: "Voice"})
+        band1 = await Band.findAll();
+        musician1 = await Musician.findAll();
+        await band1[0].addMusicians(musician1[0]);
+        band =await band1[0].getMusicians();
+        expect(band.length).toBe(1);
+    })
+    test('song to band assoc', async () => {
+        const lean = await Song.create({title:"Lean on Me", year: 1988, length: 303 })
+        const newsong = await Song.create({title: "song 2", year: 2002, length: 505 })
+        const newband = await Band.create({name: "Band2", genre: "Funk"})
+        band2 = await Band.findAll();
+        song2 = await Song.findAll();
+        await band2[0].addSongs([song2[0],song2[1]])
+        await song2[0].addBands([band2[0],band2[1]])
+        band = await band2[0].getSongs();
+        song = await song2[0].getBands();
+        console.log(band);
+        expect(band.length).toBe(2);
+        expect(song.length).toBe(2);
+        
+
+    })
 })
